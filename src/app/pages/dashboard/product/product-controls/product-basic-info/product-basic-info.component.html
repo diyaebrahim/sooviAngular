@@ -1,0 +1,76 @@
+<div class="row">
+  <nb-card class="col-md-8" *ngIf="grades && categories && brands && loaded" size="giant" [nbSpinner]="loading" nbSpinnerStatus="primary" nbSpinnerSize="large" nbSpinnerMessage="Loading">
+    <nb-card-header>
+      Product Info
+    </nb-card-header>
+    <nb-card-body>
+      <div class="row">
+        <div class="col-sm-3">
+          <label class="label">Product Id</label>
+          <input [disabled]="true" fullWidth  [ngModel]="this.product.id"
+            nbInput>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <label class="label">Name</label>
+          <input  [(ngModel)]="this.product.productName" fullWidth
+            placeholder="Product Name..." nbInput>
+        </div>
+        <div class="col-md-12">
+          <label class="label">Description</label>
+          <textarea nbInput  [(ngModel)]="this.product.description"
+            fullWidth placeholder="Product Description.."></textarea>
+        </div>
+        <div class="col-md-12">
+          <label class="label">Image Path</label>
+          <input  [(ngModel)]="this.product.image" fullWidth
+            placeholder="Image Path..." nbInput>
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group col-sm-3">
+          <label class="label">Price</label>
+          <input type="number"  [(ngModel)]="this.product.price"
+            placeholder="Price..." nbInput>
+        </div>
+        <div class="form-group col-sm-3">
+          <label class="label">Product Category</label>
+          <nb-select fullWidth placeholder="Select Product Category" [(ngModel)]="this.product.category.id">
+            <nb-option *ngFor="let category of this.categories" [value]="category.id">
+              {{category.title}}
+            </nb-option>
+          </nb-select>
+        </div>
+        <div class="form-group col-sm-3">
+          <label class="label">Brand</label>
+          <nb-select fullWidth placeholder="Select Product Brand" [(ngModel)]="this.product.brand.brandId">
+            <nb-option *ngFor="let brand of this.brands" [value]="brand.brandId">
+              {{brand.brandName}}
+            </nb-option>
+          </nb-select>
+        </div>
+        <div class="form-group col-sm-3">
+          <label class="label">Grade</label>
+          <nb-select fullWidth placeholder="Select Product Grade" [(ngModel)]="this.product.grade.id">
+            <nb-option *ngFor="let grade of this.grades" [value]="grade.id">
+              {{grade.title}}
+            </nb-option>
+          </nb-select>
+        </div>
+      </div>
+    </nb-card-body>
+  </nb-card>
+  <nb-card class="col-md-4" *ngIf="grades && categories && brands && loaded" size="giant" [nbSpinner]="loading" nbSpinnerStatus="primary" nbSpinnerSize="large" nbSpinnerMessage="Getting Features">
+    <nb-card-header>
+      Product Features
+    </nb-card-header>
+    <nb-card-body>
+    
+    </nb-card-body>
+  
+    <nb-card-footer style="text-align: right;">
+      <button nbButton status="success" (click)="saveChanges();">Save</button>
+    </nb-card-footer>
+  </nb-card>
+</div>

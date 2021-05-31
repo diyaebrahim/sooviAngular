@@ -1,0 +1,28 @@
+<div *ngIf="this.isProductSelected == false" class="row">
+    <div class="col-md-9">
+        <nb-card [size]="'large'" accent="info">
+            <nb-card-header>
+                <nb-form-field>
+                    <nb-icon nbPrefix icon="search-outline" pack="eva"></nb-icon>
+                    <input fullWidth placeholder="search in products" #searchProduct
+                        (keyup.enter)="search(searchProduct.value)" type="text" nbInput>
+                </nb-form-field>
+            </nb-card-header>
+            <nb-card-body [nbSpinner]="getProductsloading" nbSpinnerStatus="primary" nbSpinnerSize="large"
+                nbSpinnerMessage="Getting Products">
+                <nb-list>
+                    <nb-list-item (click)="selectProduct(product)" style="cursor: pointer;"
+                        *ngFor="let product of products">
+                        <app-product-cell [product]="product"></app-product-cell>
+                    </nb-list-item>
+                </nb-list>
+            </nb-card-body>
+        </nb-card>
+    </div>
+</div>
+
+<div *ngIf="this.isProductSelected == true" class="row">
+    <div class="col-md-12">
+        <product-basic-info [product]="this.product"></product-basic-info>
+    </div>
+</div>
