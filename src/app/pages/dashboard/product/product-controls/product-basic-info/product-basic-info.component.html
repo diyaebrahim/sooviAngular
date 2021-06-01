@@ -1,5 +1,6 @@
 <div class="row">
-  <nb-card class="col-md-8" *ngIf="grades && categories && brands && loaded" size="giant" [nbSpinner]="loading" nbSpinnerStatus="primary" nbSpinnerSize="large" nbSpinnerMessage="Loading">
+  <nb-card class="col-md-8" *ngIf="grades && categories && brands && loaded" size="giant" [nbSpinner]="loading"
+    nbSpinnerStatus="primary" nbSpinnerSize="large" nbSpinnerMessage="Loading">
     <nb-card-header>
       Product Info
     </nb-card-header>
@@ -7,32 +8,28 @@
       <div class="row">
         <div class="col-sm-3">
           <label class="label">Product Id</label>
-          <input [disabled]="true" fullWidth  [ngModel]="this.product.id"
-            nbInput>
+          <input [disabled]="true" fullWidth [ngModel]="this.product.id" nbInput>
         </div>
       </div>
       <div class="row">
         <div class="col-md-12">
           <label class="label">Name</label>
-          <input  [(ngModel)]="this.product.productName" fullWidth
-            placeholder="Product Name..." nbInput>
+          <input [(ngModel)]="this.product.productName" fullWidth placeholder="Product Name..." nbInput>
         </div>
         <div class="col-md-12">
           <label class="label">Description</label>
-          <textarea nbInput  [(ngModel)]="this.product.description"
-            fullWidth placeholder="Product Description.."></textarea>
+          <textarea nbInput [(ngModel)]="this.product.description" fullWidth
+            placeholder="Product Description.."></textarea>
         </div>
         <div class="col-md-12">
           <label class="label">Image Path</label>
-          <input  [(ngModel)]="this.product.image" fullWidth
-            placeholder="Image Path..." nbInput>
+          <input [(ngModel)]="this.product.image" fullWidth placeholder="Image Path..." nbInput>
         </div>
       </div>
       <div class="row">
         <div class="form-group col-sm-3">
           <label class="label">Price</label>
-          <input type="number"  [(ngModel)]="this.product.price"
-            placeholder="Price..." nbInput>
+          <input type="number" [(ngModel)]="this.product.price" placeholder="Price..." nbInput>
         </div>
         <div class="form-group col-sm-3">
           <label class="label">Product Category</label>
@@ -61,16 +58,49 @@
       </div>
     </nb-card-body>
   </nb-card>
-  <nb-card class="col-md-4" *ngIf="grades && categories && brands && loaded" size="giant" [nbSpinner]="loading" nbSpinnerStatus="primary" nbSpinnerSize="large" nbSpinnerMessage="Getting Features">
-    <nb-card-header>
-      Product Features
+  <nb-card class="col-md-4" *ngIf="grades && categories && brands && loaded" size="giant" [nbSpinner]="loading"
+    nbSpinnerStatus="primary" nbSpinnerSize="large" nbSpinnerMessage="Getting Features">
+    <nb-card-header class="row">
+      <div class="col-md-10">
+        Features
+      </div>
+      <div class="col-md-2">
+        <nb-action title="Add Feature" icon="plus-outline" (click)="openDialog(addFeatureDialog)">
+        </nb-action>
+      </div>
     </nb-card-header>
     <nb-card-body>
-    
+      <nb-list>
+        <nb-list-item *ngFor="let feature of product.features">
+          <span style="width: 90%;"> {{ feature.featureName }}</span>
+          <nb-action (click)="deleteFeature(feature)" title="Delete Feature" icon="trash-2-outline">
+          </nb-action>
+        </nb-list-item>
+      </nb-list>
     </nb-card-body>
-  
+
     <nb-card-footer style="text-align: right;">
       <button nbButton status="success" (click)="saveChanges();">Save</button>
     </nb-card-footer>
   </nb-card>
 </div>
+<ng-template #addFeatureDialog let-data let-ref="dialogRef">
+  <nb-card style="width: 400px;">
+    <nb-card-header>
+      Add a new feature
+    </nb-card-header>
+    <nb-card-body>
+      <div class="form-group">
+        <label class="label">Feature</label>
+        <nb-select [(ngModel)]="this.selectedActivityType" fullWidth>
+          <nb-option *ngFor="let feature of filteredFeatures" [value]="type">
+            {{feature.featureName}}</nb-option>
+        </nb-select>
+      </div>
+    </nb-card-body>
+    <nb-card-footer style="text-align: right;">
+      <button (click)="addFeature(ref)" nbButton
+        status="primary">Add feature</button>
+    </nb-card-footer>
+  </nb-card>
+</ng-template>
