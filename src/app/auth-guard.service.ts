@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
 import { NbAuthService } from '@nebular/auth';
 import { tap } from 'rxjs/operators';
+import { environment } from '../environments/environment';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
@@ -12,7 +13,7 @@ export class AuthGuard implements CanActivate {
           .pipe(
             tap(authenticated => {
               if (!authenticated) {
-                document.location.href = "http://localhost:4200/#/auth/login";
+                document.location.href = environment.loginUrl;
               }
             }),
           );

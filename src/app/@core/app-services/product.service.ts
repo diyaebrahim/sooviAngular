@@ -50,7 +50,20 @@ export class ProductService {
     return this.http.get<any>(this.searchForProductPath+search+'&page='+page);
   }
   addOrUpdateProduct(model:AddProductModel): Observable<any> {
-    return this.http.post<any>(this.addProductPath,model);
+    const formData = new FormData();
+    formData.append('id', model.id.toString());
+    formData.append('image', model.image);
+    formData.append('price', model.price.toString());
+    formData.append('title', model.title);
+    formData.append('brandId', model.brandId.toString());
+    formData.append('categoryId', model.categoryId.toString());
+    formData.append('classificationId', model.classificationId.toString());
+    formData.append('description', model.description);
+    model.features.forEach(element => {
+      formData.append('features', element.toString());      
+    });
+    formData.append('gradeId', model.gradeId.toString());
+    return this.http.post<any>(this.addProductPath,formData);
   }
 
 }

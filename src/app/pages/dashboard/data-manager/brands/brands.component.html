@@ -1,0 +1,77 @@
+<div class="row">
+    <div class="col-md-12">
+        <nb-card [size]="'medium'">
+            <nb-card-header>
+                <div class="row">
+                    <div class="col-md-11">
+                        Brands
+                    </div>
+                    <div class="col-md-1">
+                        <nb-action title="Add Brand" icon="plus-outline" (click)="addBrand(dialogEdit)">
+                        </nb-action>
+                    </div>
+                </div>
+            </nb-card-header>
+            <nb-card-body [nbSpinner]="gettingBrands" nbSpinnerStatus="primary" nbSpinnerSize="large" nbSpinnerMessage="Getting Brands">
+                <table class="table" *ngIf="brands.length>0">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>English title</th>
+                            <th>Arabic title</th>
+                            <th>Image</th>
+                            <th>Hide</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let brand of brands">
+                            <td>
+                                {{ brand.id }}
+                            </td>
+                            <td>
+                                {{brand.englishTitle}}
+                            </td>
+                            <td>
+                                {{brand.arabicTitle}}
+                            </td>
+                            <td>
+                                IMAGE
+                            </td>
+                            <td>
+                                {{brand.hide}}
+                            </td>
+                            <td>
+                                <nb-actions fullWidth size="small">
+                                    <nb-action (click)="editBrand(dialogEdit,brand)" title="Edit" icon="edit-outline">
+                                    </nb-action>
+                                </nb-actions>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </nb-card-body>
+        </nb-card>
+    </div>
+</div>
+
+
+<ng-template #dialogEdit let-data let-ref="dialogRef">
+    <nb-card>
+        <nb-card-header>Brand data</nb-card-header>
+        <nb-card-body>
+            <label class="label">English title</label>
+            <input class="form-control" required type="text" [(ngModel)]="selectedBrand.englishTitle" name="englishTitle" fullWidth placeholder="English Title">
+            <label class="label">Arabic title</label>
+            <input class="form-control" required type="text" [(ngModel)]="selectedBrand.arabicTitle" name="englishTitle" fullWidth placeholder="Arabic Title">
+            <img [src]="selectedBrand.imagePath" (click)="file.click()" alt="brand picture" style="width:60px; height:60px;">
+            <input type="file" #file placeholder="Choose file" (change)="uploadFile(file.files)" style="display:none;">
+            <nb-checkbox [(ngModel)]="selectedBrand.hide">
+                Hide?
+            </nb-checkbox>
+        </nb-card-body>
+        <nb-card-footer style="text-align: right;">
+            <button [nbSpinner]="savingBrand" nbSpinnerStatus="success" nbButton (click)="addOrUpdateBrand(ref)" status="primary">Save</button>
+        </nb-card-footer>
+    </nb-card>
+</ng-template>

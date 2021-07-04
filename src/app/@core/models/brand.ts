@@ -1,4 +1,8 @@
 export class Brand {
-    brandId: number;
-    brandName: string;
+    id: number;
+    englishTitle: string;
+    arabicTitle: string;
+    imagePath: string;
+    hide:boolean;
+    image:any;
 }

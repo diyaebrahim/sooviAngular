@@ -5,8 +5,8 @@
  */
 export const environment = {
   production: true,
-  apiUrl: 'https://goods-mart.com/Commercial/',
-  commonUrl: 'https://goods-mart.com/Common/',
-  checkUrl: 'http://commercial.goods-mart.com/version.json',
-  loginUrl: 'http://login.goods-mart.com/#/auth/login'
+  apiUrl: 'https://18.196.156.64/Dashboard/',
+  commonUrl: 'http://18.196.156.64/Common/',
+  checkUrl: 'http://18.196.156.64/dashboard/version.json',
+  loginUrl: 'http://18.196.156.64/dashboard/#/auth/login'
 };

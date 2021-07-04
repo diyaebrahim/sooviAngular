@@ -8,7 +8,7 @@ import { environment } from '../../../environments/environment';
 })
 export class UserServiceData {
 
-  private getUserNamePath = environment.commonUrl + 'identity/GetUserName';
+  private getUserNamePath = environment.commonUrl + 'identity/GetUserData';
 
   constructor(private http: HttpClient) { }
 

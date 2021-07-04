@@ -1,0 +1,77 @@
+<div class="row">
+    <div class="col-md-12">
+        <nb-card [size]="'medium'">
+            <nb-card-header>
+                <div class="row">
+                    <div class="col-md-11">
+                        Grades
+                    </div>
+                    <div class="col-md-1">
+                        <nb-action title="Add Grade" icon="plus-outline" (click)="addGrade(dialogEdit)">
+                        </nb-action>
+                    </div>
+                </div>
+            </nb-card-header>
+            <nb-card-body [nbSpinner]="gettingGrades" nbSpinnerStatus="primary" nbSpinnerSize="large" nbSpinnerMessage="Getting Grades">
+                <table class="table" *ngIf="grades.length>0">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>title</th>
+                            <th>Description</th>
+                            <th>Image</th>
+                            <th>Hide</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let Grade of grades">
+                            <td>
+                                {{ Grade.id }}
+                            </td>
+                            <td>
+                                {{Grade.title}}
+                            </td>
+                            <td>
+                                {{Grade.description}}
+                            </td>
+                            <td>
+                                <img [src]="Grade.imagePath" alt="grade picture" style="width:60px; height:60px;">
+                            </td>
+                            <td>
+                                {{Grade.hide}}
+                            </td>
+                            <td>
+                                <nb-actions fullWidth size="small">
+                                    <nb-action (click)="editGrade(dialogEdit,Grade)" title="Edit" icon="edit-outline">
+                                    </nb-action>
+                                </nb-actions>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </nb-card-body>
+        </nb-card>
+    </div>
+</div>
+
+
+<ng-template #dialogEdit let-data let-ref="dialogRef">
+    <nb-card>
+        <nb-card-header>Grade data</nb-card-header>
+        <nb-card-body>
+            <label class="label">Title</label>
+            <input class="form-control" required type="text" [(ngModel)]="selectedGrade.title" name="title" fullWidth placeholder="Title">
+            <label class="label">Description</label>
+            <img [src]="selectedGrade.imagePath" (click)="file.click()" alt="grade picture" style="width:60px; height:60px;">
+            <input type="file" #file placeholder="Choose file" (change)="uploadFile(file.files)" style="display:none;"> 
+            <input class="form-control" required type="text" [(ngModel)]="selectedGrade.description" name="Description" fullWidth placeholder="Description">
+            <nb-checkbox [(ngModel)]="selectedGrade.hide">
+                Hide?
+            </nb-checkbox>
+        </nb-card-body>
+        <nb-card-footer style="text-align: right;">
+            <button [nbSpinner]="savingGrade" nbSpinnerStatus="success" nbButton (click)="addOrUpdateGrade(ref)" status="primary">Save</button>
+        </nb-card-footer>
+    </nb-card>
+</ng-template>

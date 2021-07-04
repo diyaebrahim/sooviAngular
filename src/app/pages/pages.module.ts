@@ -8,6 +8,10 @@ import { ProductBasicInfoComponent } from './dashboard/product/product-controls/
 import { ProductCellComponent } from './dashboard/product/product-helper-components/product-cell/product-cell.component';
 import { ProductComponent } from './dashboard/product/product/product.component';
 import { FormsModule } from '@angular/forms';
+import { BrandsComponent } from './dashboard/data-manager/brands/brands.component';
+import { GradesComponent } from './dashboard/data-manager/grades/grades.component';
+import { CategoriesComponent } from './dashboard/data-manager/categories/categories.component';
+import { ClassificationsComponent } from './dashboard/data-manager/classifications/classifications.component';
 
 
 @NgModule({
@@ -41,7 +45,7 @@ import { FormsModule } from '@angular/forms';
   ],
   declarations: [
     PagesComponent,
-    ProductComponent, ProductBasicInfoComponent, ProductCellComponent
+    ProductComponent, ProductBasicInfoComponent, ProductCellComponent, BrandsComponent, GradesComponent, CategoriesComponent, ClassificationsComponent
   ],
 })
 export class PagesModule {

@@ -72,7 +72,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     // this.systemAccess = JSON.parse(cookieService.get('SystemAccess'));
     // this.functionSearch = this.systemAccess.some(s => s.pageId === 1 && s.controlsId.includes(10));
     userService.getUserName().subscribe(data => {
-      this.loggedUserName = data.userName;
+      this.loggedUserName = data.fullName;
     })
     this.materialTheme$ = this.themeService.onThemeChange()
       .pipe(map(theme => {

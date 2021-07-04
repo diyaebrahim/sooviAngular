@@ -1,4 +1,9 @@
 export class Category {
     id: number;
-    title: string;
+    arabicTitle: string;
+    englishTitle: string;
+    imagePath: string;
+    hide: boolean;
+    image:any;
+    
 }

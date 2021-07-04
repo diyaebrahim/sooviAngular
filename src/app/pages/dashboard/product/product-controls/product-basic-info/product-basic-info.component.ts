@@ -1,10 +1,12 @@
 import { DatePipe } from "@angular/common";
 import { Component, Input, OnInit, TemplateRef } from "@angular/core";
 import { NbDialogService, NbToastrService } from "@nebular/theme";
+import { DataManagerService } from "../../../../../@core/app-services/datamanager.service";
 import { ProductService } from "../../../../../@core/app-services/product.service";
 import { AddProductModel } from "../../../../../@core/models/addProductModel";
 import { Brand } from "../../../../../@core/models/brand";
 import { Category } from "../../../../../@core/models/category";
+import { Classification } from "../../../../../@core/models/classification";
 import { Feature } from "../../../../../@core/models/feature";
 import { Grade } from "../../../../../@core/models/grade";
 import { Product } from "../../../../../@core/models/product";
@@ -21,7 +23,6 @@ export class ProductBasicInfoComponent implements OnInit {
     this._product = value;
     if (value != null) {
       this.loaded = true;
-      console.log(this.product);
     }
   }
   get product(): Product {
@@ -29,19 +30,20 @@ export class ProductBasicInfoComponent implements OnInit {
   }
   newFeature: Feature=new Feature();
   loaded: boolean = false;
-  grades: Grade[] = new Array();
-  brands: Brand[] = new Array();
-  categories: Category[] = new Array();
-  loading: boolean = false;
+  grades: Grade[];
+  brands: Brand[];
+  categories: Category[];
+  loading: boolean = true;
   createdAt: string;
   updatedAt: string;
   selectedProductType: string;
-  features: Feature[] = new Array();
-  filteredFeatures: Feature[] = new Array();
+  features: Feature[];
+  filteredFeatures: Feature[];
+  classifications:Classification[];
   addOrUpdateModel: AddProductModel = new AddProductModel();
   constructor(
     private productService: ProductService,
-    private datepipe: DatePipe,
+    private dataService: DataManagerService,
     private toastrService: NbToastrService,
     private dialogService :NbDialogService
   ) {
@@ -54,6 +56,9 @@ export class ProductBasicInfoComponent implements OnInit {
     this.productService.getCategories().subscribe((data) => {
       this.categories = data;
     });
+    this.dataService.getClassifications().subscribe(data=>{
+      this.classifications = data;
+    });
     this.productService.getFeatures().subscribe((data) => {
       this.features = data;
       this.features.forEach(element => {
@@ -61,22 +66,23 @@ export class ProductBasicInfoComponent implements OnInit {
             this.filteredFeatures.push(element);
         }
       });
+      this.loading = false;
     });
   }
 
   ngOnInit() {}
 
   saveChanges() {
-    this.addOrUpdateModel.brandId = this.product.brand.brandId;
+    this.addOrUpdateModel.brandId = this.product.brand.id;
     this.addOrUpdateModel.categoryId = this.product.category.id;
     this.addOrUpdateModel.description = this.product.description;
     this.addOrUpdateModel.features = this.product.features.map(({ id }) => id);
     this.addOrUpdateModel.gradeId = this.product.grade.id;
-    this.addOrUpdateModel.image = this.product.image;
     this.addOrUpdateModel.price = this.product.price;
-    this.addOrUpdateModel.title = this.product.productName;
+    this.addOrUpdateModel.classificationId = this.product.classification.id;
     this.addOrUpdateModel.id = this.product.id;
-
+    this.addOrUpdateModel.title = this.product.productName;
+    console.log(this.addOrUpdateModel);
     this.productService
       .addOrUpdateProduct(this.addOrUpdateModel)
       .subscribe((data) => {
@@ -88,6 +94,11 @@ export class ProductBasicInfoComponent implements OnInit {
           );
         }
       });
+  }
+  uploadFile(files){
+    if(files.length != 0){
+      this.addOrUpdateModel.image = files[0];
+    }
   }
   addFeature(ref) {
     ref.close();
