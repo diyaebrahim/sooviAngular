@@ -20,7 +20,7 @@ export class DataManagerService {
   private getGradesPath = environment.commonUrl + 'Product/GetGrades';
   private getCategoriesPath = environment.commonUrl + 'Product/GetCategories';
   private getFeaturesPath = environment.commonUrl + 'Product/GetFeatures';
-  private getClassificationsPath = environment.apiUrl + 'DataManager/GetClassifications';
+  private getClassificationsPath = environment.commonUrl + 'Product/GetClassifications';
   private addOrUpdateGradePath = environment.apiUrl + 'DataManager/addOrUpdateGrade';
   private addOrUpdateBrandPath = environment.apiUrl + 'DataManager/addOrUpdateBrand';
   private addOrUpdateCategoryPath = environment.apiUrl + 'DataManager/addOrUpdateCategory';
